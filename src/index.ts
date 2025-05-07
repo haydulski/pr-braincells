@@ -12,7 +12,7 @@ let contentManager: ContentManager | null = null;
 
 // Create server instance
 const server = new McpServer({
-    name: "pr-braincels",
+    name: "pr-braincells",
     version: "1.0.0",
     capabilities: {
         resources: {},
@@ -73,7 +73,7 @@ async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
 
-    console.error("Profitroom Braincels MCP Server running on stdio");
+    console.error("Profitroom Braincells MCP Server running on stdio");
 }
 
 main().catch((error) => {

@@ -1,6 +1,6 @@
-# PR-Braincels
+# PR-Braincells
 
-MCP test node server for markdown files usage. Every file in the celss folder, written in correct format, might be used to generate helpfull answers.
+MCP test node server for markdown files usage. Every file in the cells folder, written in correct format, might be used to generate helpfull answers.
 
 ## Setup
 
@@ -13,7 +13,7 @@ MCP test node server for markdown files usage. Every file in the celss folder, w
 
 ## Environment Variables
 
-- `CELS_DIRECTORY`: Directory containing knowledge cells markdown files
+- `CELLS_DIRECTORY`: Directory containing knowledge cells markdown files
 
 ## Build
 ```
@@ -24,13 +24,13 @@ npm run build
 ```
 {
   "mcpServers": {
-    "pr-braincels": {
+    "pr-braincells": {
       "command": "node",
       "args": [
         "/full-path-to-project/build/index.js"
       ],
       "env": {
-        "CELS_DIRECTORY": "/full-path-to-project/cels"
+        "CELLS_DIRECTORY": "/full-path-to-project/cells"
       }
     }
   }

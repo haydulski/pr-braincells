@@ -8,7 +8,7 @@ interface AppConfig {
 }
 
 const config: AppConfig = {
-    celsDirectory: process.env.CELS_DIRECTORY ?? '../cells',
+    celsDirectory: process.env.CELLS_DIRECTORY ?? '../cells',
 };
 
 export default config; 
