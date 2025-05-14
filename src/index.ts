@@ -24,7 +24,7 @@ const server = new McpServer({
 // register specific tools
 server.tool(
     "get-by-tag",
-    "Get knowledge cels in markdown format by their tags",
+    "Get knowledge cells in markdown format by their tags and use them to build answers to questions",
     {
         tag: z.string().describe("Tag name for searching knowledge content"),
     },
@@ -41,7 +41,7 @@ server.tool(
 
         return {
             content: [
-                { type: "text", text: `Getting markdown files for tags: ${tag}` },
+                { type: "text", text: files },
             ],
         };
     },
@@ -49,9 +49,9 @@ server.tool(
 
 server.tool(
     'get-tags-list',
-    'Get a list of all tags in the content',
+    'Get a list of all tags of the cells',
     async () => {
-        debugPrint("Getting tags list " + config.celsDirectory);
+        debugPrint("Getting tags list " + config.cellsDirectory);
         if (!contentManager) {
             return {
                 content: [

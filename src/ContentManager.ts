@@ -15,7 +15,7 @@ class ContentManager {
     private pathToContent: Record<string, ContentFile>;
 
     constructor() {
-        this.contentDirs = [config.celsDirectory];
+        this.contentDirs = [config.cellsDirectory];
         this.dirToFiles = {};
         this.pathToContent = {};
         this.loadContent();
