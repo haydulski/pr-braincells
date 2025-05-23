@@ -30,8 +30,25 @@ npm run build
       ],
       "env": {
         "CELLS_DIRECTORY": "/full-path-to-project/cells"
-      }
+      },
+      "alwaysAllow": [
+        "query"
+      ]
     }
   }
 }
+
 ```
+
+## TO DO:
+
+### FEATURES
+
+- Handle multi tags query
+- Provide mechanism to selects most adequate file from those having same tag
+- Split cells into separate folders with dedicated tools (for example: get-by-tag-pms from cells/pms folder)
+- Check that file content is provided in best way by method ```_formatContentForOutput```
+
+### OTHER
+
+- Find out way to import pages from Confluence as markdown, [we can test this plugin](https://marketplace.atlassian.com/apps/1221351/markdown-exporter-for-confluence?tab=reviews&hosting=cloud)
