@@ -4,10 +4,7 @@ import yaml from 'js-yaml';
 
 import ContentFile from "./ContentFile.js";
 import config from './config.js';
-
-function debugPrint(message: string) {
-    console.error(`DEBUG: ${message}`);
-};
+import { logger } from './logger.js';
 
 class ContentManager {
     private contentDirs: string[];
@@ -20,7 +17,7 @@ class ContentManager {
         this.pathToContent = {};
         this.loadContent();
 
-        debugPrint(`Content manager initialized with ${this.contentDirs[0]} directories`);
+        logger.debug(`Content manager initialized with ${this.contentDirs[0]} directories`);
     }
 
     loadContent() {
@@ -29,13 +26,13 @@ class ContentManager {
 
         for (const contentDir of this.contentDirs) {
             if (!fs.existsSync(contentDir) || !fs.statSync(contentDir).isDirectory()) {
-                debugPrint(`Warning: ${contentDir} is not a valid directory, skipping`);
+                logger.debug(`Warning: ${contentDir} is not a valid directory, skipping`);
                 continue;
             }
 
             const mdFiles = this._findMarkdownFiles(contentDir);
             this.dirToFiles[contentDir] = mdFiles;
-            debugPrint(`Found ${mdFiles.length} markdown files in ${contentDir}`);
+            logger.debug(`Found ${mdFiles.length} markdown files in ${contentDir}`);
 
             for (const filePath of mdFiles) {
                 try {
@@ -47,12 +44,12 @@ class ContentManager {
                         data
                     );
                 } catch (e) {
-                    debugPrint(`Error processing ${filePath}: ${e}`);
+                    logger.debug(`Error processing ${filePath}: ${e}`);
                 }
             }
         }
 
-        debugPrint(`Total files processed: ${Object.keys(this.pathToContent).length}`);
+        logger.debug(`Total files processed: ${Object.keys(this.pathToContent).length}`);
     }
 
     _findMarkdownFiles(dir: string) {
@@ -166,7 +163,7 @@ class ContentManager {
 
             return { meta, data };
         } catch (e) {
-            debugPrint(`YAML parsing error: ${e}`);
+            logger.debug(`YAML parsing error: ${e}`);
             return { meta: {}, data: content.slice(match[0].length) };
         }
     }
@@ -175,19 +172,19 @@ class ContentManager {
         const matches: ContentFile[] = [];
         const tagLower = tag.toLowerCase();
 
-        debugPrint(`Searching for tag: '${tagLower}'`);
+        logger.debug(`Searching for tag: '${tagLower}'`);
         for (const [filePath, contentFile] of Object.entries(this.pathToContent)) {
             const rawTags = contentFile.meta.tags || [];
             const tags = this._normalizeTags(rawTags);
 
             // Debug
             if (tags.length) {
-                debugPrint(`File: ${path.basename(filePath)} - Tags: ${tags}`);
+                logger.debug(`File: ${path.basename(filePath)} - Tags: ${tags}`);
             }
 
             // Check for exact tag match (case insensitive)
             if (tags.some(t => tagLower === t.toLowerCase())) {
-                debugPrint(`Found exact tag match in ${path.basename(filePath)}`);
+                logger.debug(`Found exact tag match in ${path.basename(filePath)}`);
                 matches.push(contentFile);
                 continue;
             }
@@ -195,14 +192,14 @@ class ContentManager {
             // Check if the tag is part of a tag
             for (const t of tags) {
                 if (t.toLowerCase().includes(tagLower)) {
-                    debugPrint(`Found partial tag match in ${path.basename(filePath)}: '${t}'`);
+                    logger.debug(`Found partial tag match in ${path.basename(filePath)}: '${t}'`);
                     matches.push(contentFile);
                     break;
                 }
             }
         }
 
-        debugPrint(`Found ${matches.length} files with tag '${tag}'`);
+        logger.debug(`Found ${matches.length} files with tag '${tag}'`);
 
         return this._formatContentForOutput(matches);
     }
@@ -211,7 +208,7 @@ class ContentManager {
         const allTags = new Set();
         const tagQueryLower = tagQuery.toLowerCase();
 
-        debugPrint(`Searching for tags containing: '${tagQueryLower}'`);
+        logger.debug(`Searching for tags containing: '${tagQueryLower}'`);
         for (const [_, contentFile] of Object.entries(this.pathToContent)) {
             const rawTags = contentFile.meta.tags || [];
             const tags = this._normalizeTags(rawTags);
@@ -226,7 +223,7 @@ class ContentManager {
 
         // Convert to array and sort alphabetically
         const tagList = Array.from(allTags).sort();
-        debugPrint(`Found ${tagList.length} tags matching '${tagQueryLower}'`);
+        logger.debug(`Found ${tagList.length} tags matching '${tagQueryLower}'`);
 
         return tagList;
     }
@@ -234,7 +231,7 @@ class ContentManager {
     listAllTags(): string {
         const tagInfo: Record<string, number> = {};
 
-        debugPrint("Collecting tag statistics...");
+        logger.debug("Collecting tag statistics...");
         for (const [_, contentFile] of Object.entries(this.pathToContent)) {
             const rawTags = contentFile.meta.tags || [];
             const tags = this._normalizeTags(rawTags);
