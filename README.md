@@ -5,11 +5,10 @@ MCP test node server for markdown files usage. Every file in the cells folder, w
 ## Setup
 
 1. Clone the repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
-3. Configure server in your IDE of choice
+2. Create `.env`
+3. Run: `make dev`
+4. Refer to Makefile: `make help`
+5. Configure server in your IDE of choice
 
 ## Environment Variables
 

@@ -1,4 +1,4 @@
-.PHONY: help install build run dev docker-build docker-run docker-exec docker-clean
+.PHONY: help install build run dev
 
 help:
 	@echo "  help         - Show this help message"

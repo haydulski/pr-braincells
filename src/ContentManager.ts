@@ -12,7 +12,7 @@ class ContentManager {
     private pathToContent: Record<string, ContentFile>;
 
     constructor() {
-        this.contentDirs = [config.cellsDirectory];
+        this.contentDirs = [config.cellsDirectory, config.cellsDirectory + '/private'];
         this.dirToFiles = {};
         this.pathToContent = {};
         this.loadContent();
