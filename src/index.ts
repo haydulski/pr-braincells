@@ -3,10 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import ContentManager from "./ContentManager.js";
 import config from './config.js';
-
-const debugPrint = (message: string) => {
-    console.error(`DEBUG: ${message}`);
-};
+import { logger } from './logger.js';
 
 let contentManager: ContentManager | null = null;
 
@@ -51,7 +48,7 @@ server.tool(
     'get-tags-list',
     'Get a list of all tags of the cells',
     async () => {
-        debugPrint("Getting tags list " + config.cellsDirectory);
+        logger.debug("Getting tags list " + config.cellsDirectory);
         if (!contentManager) {
             return {
                 content: [

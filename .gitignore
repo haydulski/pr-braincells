@@ -1,4 +1,5 @@
 .env
-cells/new-ota.md
 build
 node_modules
+.idea
+cells/private/*

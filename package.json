@@ -1,6 +1,6 @@
 {
   "name": "pr-braincells",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Server providing access to markdown files",
   "main": "index.js",
   "bin": {
